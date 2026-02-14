@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+  <title>SOLICITAÇÃO DE MPDV</title>
+  <style>
+    :root {
+      --bg: #121212;
+      --card: #1e1e1e;
+      --border: #333;
+      --text: #fff;
+      --text-muted: #aaa;
+      --input-bg: #2a2a2a;
+      --accent: #fff;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      padding: 16px;
+      min-height: 100vh;
+    }
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      background-color: var(--card);
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      position: relative;
+    }
+    .logo {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      width: 90px;
+      height: auto;
+    }
+    h1 {
+      font-size: 20px;
+      margin-bottom: 8px;
+      padding-right: 100px;
+      line-height: 1.3;
+    }
+    .subtitle {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 24px;
+      padding-right: 100px;
+    }
+    .form-group {
+      margin-bottom: 16px;
+    }
+    label {
+      display: block;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    /* Mobile-friendly inputs */
+    input, select {
+      width: 100%;
+      height: 48px; /* Larger touch target */
+      padding: 0 12px;
+      font-size: 16px; /* Prevents iOS zoom */
+      background-color: var(--input-bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      appearance: none; /* Reset native styles */
+      -webkit-appearance: none;
+      -moz-appearance: none;
+    }
+
+    /* Custom arrow for selects */
+    .select-wrapper {
+      position: relative;
+    }
+    .select-wrapper::after {
+      content: '';
+      position: absolute;
+      right: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 0; 
+      height: 0; 
+      border-left: 5px solid transparent;
+      border-right: 5px solid transparent;
+      border-top: 5px solid #fff;
+      pointer-events: none;
+    }
+
+    input:focus, select:focus {
+      outline: 2px solid #666;
+      background-color: #333;
+    }
+
+    select:disabled, input[readonly] {
+      opacity: 0.5;
+      background-color: #1a1a1a;
+      color: #777;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+    @media (min-width: 480px) {
+      .grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    button {
+      width: 100%;
+      height: 52px;
+      margin-top: 24px;
+      background-color: var(--accent);
+      color: #000;
+      font-size: 16px;
+      font-weight: 700;
+      border: none;
+      border-radius: 8px;
+      text-transform: uppercase;
+      cursor: pointer;
+    }
+    button:active {
+      transform: scale(0.98);
+      background-color: #ddd;
+    }
+    button:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    /* Messages */
+    .msg {
+      display: none;
+      margin-top: 16px;
+      padding: 14px;
+      border-radius: 8px;
+      font-size: 14px;
+      text-align: center;
+      line-height: 1.4;
+    }
+    .msg.show { display: block; }
+    .msg.success { background: #1b3a1b; color: #4ade80; border: 1px solid #2f5f2f; }
+    .msg.error { background: #3a1b1b; color: #f87171; border: 1px solid #5f2f2f; }
+    .msg.loading { background: #1a2a3a; color: #60a5fa; border: 1px solid #2a3a4a; }
+
+    .hint {
+      margin-top: 16px;
+      font-size: 12px;
+      color: #666;
+      background: #1a1a1a;
+      padding: 10px;
+      border-radius: 6px;
+      border: 1px dashed #444;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <img src="data:image/jpeg;base64,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" alt="Logo" class="logo">
+  <h1>SOLICITAÇÃO DE MPDV</h1>
+  <p class="subtitle">Salvar em planilha Google Sheets.</p>
+
+  <form id="form" novalidate>
+    <div class="form-group">
+      <label for="clifor">Clifor *</label>
+      <input type="text" id="clifor" required placeholder="Digite o nome...">
+    </div>
+
+    <div class="grid">
+      <div class="form-group">
+        <label for="mala">Mala *</label>
+        <div class="select-wrapper">
+          <select id="mala" required>
+            <option value="">Selecione...</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="responsavel">Responsável *</label>
+        <div class="select-wrapper">
+          <select id="responsavel" required disabled>
+            <option value="">Aguardando mala...</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid">
+      <div class="form-group">
+        <label for="marca">Marca *</label>
+        <div class="select-wrapper">
+          <select id="marca" required>
+            <option value="">Selecione...</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="material">Material *</label>
+        <div class="select-wrapper">
+          <select id="material" required disabled>
+            <option value="">Aguardando marca...</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="codigo">Código do Material</label>
+      <input type="text" id="codigo" readonly placeholder="-">
+    </div>
+
+    <div class="form-group">
+      <label for="quantidade">Quantidade *</label>
+      <input type="number" id="quantidade" min="1" required placeholder="0">
+    </div>
+
+    <button type="submit" id="btnSubmit">💾 Salvar Solicitação</button>
+
+    <div class="hint">
+      ⚠️ <b>CONFIGURAÇÃO:</b> Substitua a variável <code>SCRIPT_URL</code> no código pela URL do seu Google Apps Script.
+    </div>
+
+    <div id="msgLoading" class="msg loading">⏳ Enviando dados...</div>
+    <div id="msgSuccess" class="msg success">✅ Sucesso! Dados salvos na planilha.</div>
+    <div id="msgError" class="msg error">❌ Erro ao salvar. Verifique a URL do Script.</div>
+  </form>
+</div>
+
+<script>
+(function() {
+  // ==========================================
+  // URL DO WEB APP (GOOGLE APPS SCRIPT)
+  // ==========================================
+  var SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwcvBxJwyPyPsSSapgMmvtvTPjj1UDwHjedSYmM2KQZ1NIlR9bB7AZzTh1l6iLsAcIg/exec";
+
+  // Embed Data
+  var rawJSON = "{\"brands\": [\"ARNETTE\", \"BURBERRY\", \"COACH\", \"DIESEL\", \"DOLCE & GABBANA\", \"EMPORIO ARMANI\", \"GENERIC\", \"GIORGIO ARMANI\", \"GRAZI\", \"JACK PACIFIC\", \"JEAN MONIER\", \"JIMMY CHOO\", \"KIPLING\", \"MICHAEL KORS\", \"MIRAFLEX\", \"MIU MIU\", \"OLIVER PEOPLES\", \"PERSOL\", \"PLATINI\", \"POLO\", \"PRADA\", \"PRADA LINEA ROSSA\", \"RALPH\", \"RALPH LAUREN\", \"RAY BAN SOLAR\", \"SCUDERIA FERRARI\", \"SWAROVSKI\", \"TECNOL\", \"TIFFANY\", \"VERSACE\", \"VERSACE KIDS\", \"VOGUE\"], \"materialsByBrand\": {\"ARNETTE\": [\"DISPLAY\", \"IN STORE GLORIFIER\", \"PACK\", \"SHELF TALKER\"], \"BURBERRY\": [\"IN STORE DISPLAY\", \"IN STORE LOGO PLAQUE\"], \"COACH\": [\"IN STORE LOGO PLAQUE\"], \"DIESEL\": [\"IN STORE LOGO PLAQUE\", \"WELCOME KIT\"], \"DOLCE & GABBANA\": [\"DISPLAY\", \"IN STORE LOGO PLAQUE\", \"PACK\"], \"EMPORIO ARMANI\": [\"DISPLAY\", \"GLORIFIER\", \"LOGO PLAQUE\"], \"GENERIC\": [\"IN STORE GLORIFIER\"], \"GIORGIO ARMANI\": [\"IN STORE GLORIFIER\", \"IN STORE MIRROR\", \"IN STORE TRAY\", \"LOGO PLAQUE\"], \"GRAZI\": [\"PACK\"], \"JACK PACIFIC\": [\"PACK\"], \"JEAN MONIER\": [\"PACK\"], \"JIMMY CHOO\": [\"IN STORE DISPLAY\", \"LOGO PLAQUE\"], \"KIPLING\": [\"ADESIVO\", \"IN STORE MIRROR\", \"PACK ADULTO\", \"PACK KIDS\", \"PACK MACACO\"], \"MICHAEL KORS\": [\"IN STORE LOGO PLAQUE\"], \"MIRAFLEX\": [\"IN STORE GLORIFIER\", \"PACK\", \"PACK KIDS\", \"PACK TEEN\", \"WINDOW MEDIUM DISPLAY\"], \"MIU MIU\": [\"IN STORE GLORIFIER\", \"IN STORE LOGO PLAQUE\"], \"OLIVER PEOPLES\": [\"IMAGE REFRESH\", \"IN STORE DISPLAY\"], \"PERSOL\": [\"DISPLAY PERSOL BLACK ARROW\", \"IMAGE REFRESH  for DISPLAY\", \"PACK\", \"WINDOW DISPLAY MEDIUM\", \"WINDOW DISPLAY SMALL\"], \"PLATINI\": [\"PACK\"], \"POLO\": [\"IN STORE LOGO PLAQUE\"], \"PRADA\": [\"IN STORE GLORIFIER\", \"IN STORE LOGO PLAQUE\", \"IN STORE TRAY\"], \"PRADA LINEA ROSSA\": [\"IN STORE LOGO PLAQUE\"], \"RALPH\": [\"IN STORE LOGO PLAQUE\"], \"RALPH LAUREN\": [\"IN STORE GLORIFIER\", \"IN STORE LOGO PLAQUE\"], \"RAY BAN SOLAR\": [\"IN STORE MIRROR\", \"PACK RB CARNAVAL\"], \"SCUDERIA FERRARI\": [\"IN STORE GLORIFIER\", \"LOGO PLAQUE\"], \"SWAROVSKI\": [\"PACK\"], \"TECNOL\": [\"PACK\"], \"TIFFANY\": [\"PACK\"], \"VERSACE\": [\"IN STORE GLORIFIER\", \"IN STORE PRESENTATION TRAY\"], \"VERSACE KIDS\": [\"IN STORE DISPLAY\"], \"VOGUE\": [\"DISPLAY\", \"IN STORE GLORIFIER\", \"PACK\", \"PACK ESSENTIAL REGULAR\"]}, \"codeByBrandMaterial\": {\"KIPLING\": {\"PACK MACACO\": \"ZKPPK25     VS0003\", \"ADESIVO\": \"ZKPMA25     BR0001\", \"PACK ADULTO\": \"ZKPPK25     VS0002\", \"PACK KIDS\": \"ZKPPK25     VS0001\", \"IN STORE MIRROR\": \"ZKPRI24     MIR001\"}, \"VOGUE\": {\"PACK\": \"ZVOPK25     VS0014\", \"PACK ESSENTIAL REGULAR\": \"ZVOPK25     VS0007\", \"IN STORE GLORIFIER\": \"ZVORI25     RI0001\", \"DISPLAY\": \"ZVOLW25     DI0021\"}, \"GRAZI\": {\"PACK\": \"ZGZPK25     VS0001\"}, \"MIRAFLEX\": {\"PACK\": \"ZMFPK24     VS0002\", \"PACK KIDS\": \"ZMFPK25     VS0001\", \"PACK TEEN\": \"ZMFPK25     VS0002\", \"WINDOW MEDIUM DISPLAY\": \"ZMFWD25     DI0001\", \"IN STORE GLORIFIER\": \"ZMFRI23     RI0004\"}, \"TECNOL\": {\"PACK\": \"ZTNPK25     VS0001\"}, \"PLATINI\": {\"PACK\": \"ZP9PK25     VS0001\"}, \"JEAN MONIER\": {\"PACK\": \"ZJ8PK25     VS0001\"}, \"SWAROVSKI\": {\"PACK\": \"ZSKPK25     VS0013\"}, \"ARNETTE\": {\"PACK\": \"ZANPK25     VS0008\", \"DISPLAY\": \"ZANLW25     DI0002\", \"SHELF TALKER\": \"ZANLW25     DI0001\", \"IN STORE GLORIFIER\": \"ZANRI25     RI0001\"}, \"DOLCE & GABBANA\": {\"PACK\": \"ZDGPK25     VS0006\", \"IN STORE LOGO PLAQUE\": \"ZDGRI17     PL0001\", \"DISPLAY\": \"ZDGWD25     DI0015\"}, \"PERSOL\": {\"PACK\": \"ZPOPK25     VS0006\", \"IMAGE REFRESH  for DISPLAY\": \"ZPOMF25     VS0011\", \"WINDOW DISPLAY MEDIUM\": \"ZPOSP22     SP0002\", \"DISPLAY PERSOL BLACK ARROW\": \"ZPOWD25     DI0001\", \"WINDOW DISPLAY SMALL\": \"ZPOWD24     DI0001\"}, \"POLO\": {\"IN STORE LOGO PLAQUE\": \"ZPHRI24     PL0001\"}, \"EMPORIO ARMANI\": {\"LOGO PLAQUE\": \"ZQ7RI25     PL0001\", \"DISPLAY\": \"ZEARI25     RI0001\", \"GLORIFIER\": \"ZEARI25     RI0002\"}, \"RAY BAN SOLAR\": {\"PACK RB CARNAVAL\": \"ZRBPK25     VS0002\", \"IN STORE MIRROR\": \"ZRBRI23     MIR001\"}, \"SCUDERIA FERRARI\": {\"LOGO PLAQUE\": \"ZFZRI24     PL0001\", \"IN STORE GLORIFIER\": \"ZFZRI25     RI0001\"}, \"TIFFANY\": {\"PACK\": \"ZTFPK25     VS0010\"}, \"JACK PACIFIC\": {\"PACK\": \"ZJKPK25     VS0001\"}, \"PRADA\": {\"IN STORE LOGO PLAQUE\": \"ZPRRI23     PL0001\", \"IN STORE GLORIFIER\": \"ZPRRI23     RI0001\", \"IN STORE TRAY\": \"ZPRRI23     TR0001\"}, \"MICHAEL KORS\": {\"IN STORE LOGO PLAQUE\": \"ZMKRI24     PL0001\"}, \"RALPH LAUREN\": {\"IN STORE LOGO PLAQUE\": \"ZRLRI23     PL0001\", \"IN STORE GLORIFIER\": \"ZRLRI23     RI0001\"}, \"GENERIC\": {\"IN STORE GLORIFIER\": \"Z99RI19     RI0001\"}, \"MIU MIU\": {\"IN STORE LOGO PLAQUE\": \"ZMURI25     PL0001\", \"IN STORE GLORIFIER\": \"ZMURI25     RI0001\"}, \"GIORGIO ARMANI\": {\"LOGO PLAQUE\": \"ZARRI22     PL0001\", \"IN STORE GLORIFIER\": \"ZARRI22     RI0001\", \"IN STORE TRAY\": \"ZARRI22     TR0001\", \"IN STORE MIRROR\": \"ZARRI18     MIR001\"}, \"DIESEL\": {\"IN STORE LOGO PLAQUE\": \"ZDLRI25     PL0001\", \"WELCOME KIT\": \"ZDLRI25     KIT001\"}, \"PRADA LINEA ROSSA\": {\"IN STORE LOGO PLAQUE\": \"ZPSRI19     PL0001\"}, \"VERSACE\": {\"IN STORE GLORIFIER\": \"ZVERI21     RI0001\", \"IN STORE PRESENTATION TRAY\": \"ZVERI21     TR0001\"}, \"JIMMY CHOO\": {\"LOGO PLAQUE\": \"ZJCRI24     PL0001\", \"IN STORE DISPLAY\": \"ZJCRI24     RI0001\"}, \"COACH\": {\"IN STORE LOGO PLAQUE\": \"ZHCRI24     PL0001\"}, \"BURBERRY\": {\"IN STORE DISPLAY\": \"ZJBLW25     DI0001\", \"IN STORE LOGO PLAQUE\": \"ZBERI24     PL0001\"}, \"OLIVER PEOPLES\": {\"IMAGE REFRESH\": \"ZOVMF25     VS0009\", \"IN STORE DISPLAY\": \"ZOVSP21     SP0001\"}, \"VERSACE KIDS\": {\"IN STORE DISPLAY\": \"ZVKSP25     SP0001\"}, \"RALPH\": {\"IN STORE LOGO PLAQUE\": \"ZRARI23     PL0001\"}}, \"malas\": [\"CAPRI\", \"DG + PO + OV + SK\", \"FAMILIA ARMANI - TORY\", \"FRONT - GZ\", \"MULTIMARCAS\", \"OAKLEY\", \"POLO\", \"PRADA + TF\", \"RB\", \"VO- AN- MF\"], \"responsaveisByMala\": {\"FAMILIA ARMANI - TORY\": [\"BEN HUR HUYER\", \"BRUNO SPERADINE\", \"EDILMAR BORN\", \"FAUSTO RODRIGUES FERREIRA JUNIOR\", \"GUSTAVO DA CRUZ SILVA\", \"HELLEN PATRICIA VIANA\", \"JHONATAS ALBANO\", \"LEANDRO JACINTO BARBOSA\", \"LEANDRO MIRANDA BREDER VIEIRA\", \"MYLLER MACLEY ROSA SILVA\", \"PROSPERO VELOSO LEAL JUNIOR\", \"ROBERTO DAMATTA\", \"VAGA 04\"], \"FRONT - GZ\": [\"ACIR DONIZETE VACARI\", \"ALEXANDRE DE OLIVEIRA ZAMORANO\", \"DARCIO GUIMARAES\", \"DÉCIO THAMAY DOS SANTOS\", \"EDSON ALVES DE SOUZA\", \"ELVIO OTÁVIO\", \"FELIPE CESAR DE SOUZA GONDIM\", \"GEORGE VON HERTWING\", \"LUIZ AUGUSTO DE SOUZA NOGUEIRA\", \"LUIZ FERREIRA BONFIM\", \"MARCOS ANTONIO VIEIRA DA SILVA\", \"REGINALDO VICENTINI\", \"RENATO BORGES\", \"ROBERTO CRUZ FIORAVANTE\", \"SAMUEL MAIRINK DA SILVA\", \"VINICIUS MACHADO\", \"WAGNER MEDEIROS\", \"WILTON DE ALMEIDA (SP SUL)\"], \"DG + PO + OV + SK\": [\"BENNE NUNES DE ASSIS\", \"FLAVIA SOARES BELO\", \"JARDEL PERDIGAO\", \"KAROLINE APARECIDA DOS SANTOS\", \"LEANDRO DINIZ\", \"LUCAS PEIXOTO\", \"RAPHAEL FERREIRA DE SOUZA\", \"TIAGO PAVEZI NOVAIS\"], \"PRADA + TF\": [\"ARLINDO ANTONIO SILVA DE SOUZA\", \"FABRICIO ALVES\", \"GILCY VIEIRA CYRILLO MAMEDE\", \"GUSTAVO MARQUES MALHEIROS\", \"RICARDO FRANCA DO NASCIMENTO\"], \"OAKLEY\": [\"ALESSANDRO CELSO TORRES BERTULESSI\", \"EDUARDO CARVALHO LARANGEIRA\", \"ELI PRUDENTE DA SILVA\", \"JADER TOMM\", \"JORGE ANTONIO MINUTO PEREIRA JUNIOR\", \"LAYZIO AIRES REBOUCAS\", \"LUIS HENRIQUE DE SOUZA\", \"LUIS HENRIQUE VASCONCELOS\", \"ROGERIO AUGUSTO DOS SANTOS\", \"VAGA 03\"], \"POLO\": [\"DAYANA PEREIRA\", \"EDGAR LENNON NASCIMENTO LIMA\", \"HECTOR CARLOS RIBEIRO\", \"JONATAN LUIZ FRANZ\", \"JULIANA AZEVEDO\", \"RENATA MARINHO MONTENEGRO\"], \"CAPRI\": [\"ALEXANDRE BATISTA\", \"ANA CAROLINA MARQUES MENDANHA\", \"CLEBER ANTONIO PEREIRA\", \"DIANA RABELO SAMPAIO\", \"GIZELE LUZIA DE LUCENA\", \"JULIO HENRIQUE SANTOS ROCHA FIGUEIREDO\", \"LARISSA ROSSI\", \"LUCIANO SOUZA NASCIMENTO\", \"ROMULO BERGAMO FILHO\", \"SUELEM OLIVEIRA\"], \"RB\": [\"ADRIANO ZEFERINO\", \"ANDRE LUIZ DE LIMA OLIVEIRA\", \"CAIO CEZAR GOBETTI\", \"CARLOS JACHINI DARIVA\", \"CAROLINE DECARLIS REIS\", \"CLOVIS DE SOUZA ROCHA\", \"DANIELLE BARBOSA MACHADO ANDRE\", \"EVANDRO MARIANO DOS SANTOS\", \"FABRICIO SAMPAIO DOS SANTOS\", \"GABRIEL SIGRIST DO AMARAL COSTA\", \"GREGORY ANGEL SIQUEIRA PICCOLI\", \"GUILHERME NUNES\", \"HUMBERTO RIBEIRO DE ALMEIDA\", \"IGNACIO ARTURO MALDONADO BAYO\", \"JOSE IRLANILSON ALVES GOMES\", \"KARINE DA COSTA KREMER SILVA\", \"LEONARDO PASSOS TEIXEIRA\", \"LUCIANO LOURENCO DE LIMA\", \"MARCELO MARCHIORO RAUPP\", \"MARCIO RIBEIRO DUTRA DE SOUZA\", \"MARCOS DOUGLAS ALVES DA SILVA\", \"MARCUS MARTINS PACHECO DE SOUZA\", \"MATHEUS FIORAVANTE ALVARES\", \"NADIA GONCALVES DOS SANTOS\", \"PAULO VICTOR BISPO SANTANA\", \"RAFAEL DE MORAES LORO\", \"RANGEL MEDEIROS DA SILVA\", \"RENE IVAN RAPPI\", \"ROGERIO DE LARA\", \"SIDINEI MARTINS CRESCENCIO\", \"VINICIUS PONTES DA ROCHA\", \"VITOR HUGO MONTEIRO GOELLNER\", \"WILLIAN FABIO DA SILVA\", \"WILLIAN LUCIANO RIBEIRO\"], \"VO- AN- MF\": [\"AGNALDO DOS SANTOS JUNIOR\", \"ALVARO VENTURA\", \"CARLOS HENRIQUE\", \"EDNALDO SILVA DE SOUZA\", \"EMERSON LOPES DA SILVA\", \"FLAVIO GONÇALVES FILHO\", \"GUSTAVO REZENDE PAIVA\", \"HENRIQUE SALVADOR PADILHA PEREIRA\", \"JOACIR JOSE BIASIBETTI\", \"JUNE MALUF SAFE\", \"LEDIVAL SANTOS DE SOUZA\", \"MURILO NOGUEIRA ALVES\", \"RAIMUNDO ALTEJUNES\", \"RODRIGO QUEVEDO\", \"VICTOR VALENTIN FRANÇA\"], \"MULTIMARCAS\": [\"CAROLINA FEITOSA DA CUNHA\", \"CRISTIANE GONDIM DA MOTTA RODRIGUES\", \"CYNTHIA ALESSANDRA AUGUSTO MARTINS\", \"FABIO RICARDO MARTINS DE ARAUJO\", \"JOABE DE OLIVEIRA SILVA\"]}}";
+  var DATA = JSON.parse(rawJSON);
+
+  // Cache elements
+  var els = {
+    mala: document.getElementById('mala'),
+    resp: document.getElementById('responsavel'),
+    marca: document.getElementById('marca'),
+    mat: document.getElementById('material'),
+    code: document.getElementById('codigo'),
+    form: document.getElementById('form'),
+    btn: document.getElementById('btnSubmit'),
+    loading: document.getElementById('msgLoading'),
+    success: document.getElementById('msgSuccess'),
+    error: document.getElementById('msgError')
+  };
+
+  // Helper to populate select
+  function populate(el, items) {
+    items.forEach(function(item) {
+      var opt = document.createElement('option');
+      opt.value = item;
+      opt.textContent = item;
+      el.appendChild(opt);
+    });
+  }
+
+  // Helper to reset select
+  function reset(el, placeholder) {
+    el.innerHTML = '<option value="">' + placeholder + '</option>';
+    el.value = "";
+  }
+
+  // Init
+  populate(els.mala, DATA.malas);
+  populate(els.marca, DATA.brands);
+
+  // --- MOBILE-FRIENDLY EVENT HANDLERS (using 'change' instead of 'input') ---
+
+  // 1. Mala -> Responsável
+  els.mala.addEventListener('change', function() {
+    var val = els.mala.value;
+    reset(els.resp, val ? 'Selecione...' : 'Aguardando mala...');
+    els.resp.disabled = !val;
+
+    if (val && DATA.responsaveisByMala[val]) {
+      populate(els.resp, DATA.responsaveisByMala[val]);
+    }
+  });
+
+  // 2. Marca -> Material
+  els.marca.addEventListener('change', function() {
+    var val = els.marca.value;
+    reset(els.mat, val ? 'Selecione...' : 'Aguardando marca...');
+    els.mat.disabled = !val;
+    els.code.value = "";
+
+    if (val && DATA.materialsByBrand[val]) {
+      populate(els.mat, DATA.materialsByBrand[val]);
+    }
+  });
+
+  // 3. Material -> Código
+  els.mat.addEventListener('change', function() {
+    var marca = els.marca.value;
+    var material = els.mat.value;
+
+    if (marca && material && DATA.codeByBrandMaterial[marca]) {
+      els.code.value = DATA.codeByBrandMaterial[marca][material] || "";
+    } else {
+      els.code.value = "";
+    }
+  });
+
+  // --- FORM SUBMIT ---
+  els.form.addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    // Reset messages
+    els.loading.classList.remove('show');
+    els.success.classList.remove('show');
+    els.error.classList.remove('show');
+
+    // Validation
+    if (!SCRIPT_URL || SCRIPT_URL.indexOf('http') !== 0) {
+      alert("ERRO DE CONFIGURAÇÃO:\nCole a URL do Google Apps Script na variável SCRIPT_URL dentro do código HTML.");
+      return;
+    }
+
+    var formData = {
+      clifor: document.getElementById('clifor').value.trim(),
+      mala: els.mala.value,
+      responsavel: els.resp.value,
+      marca: els.marca.value,
+      material: els.mat.value,
+      codigo: els.code.value,
+      quantidade: document.getElementById('quantidade').value
+    };
+
+    if (!formData.clifor || !formData.mala || !formData.responsavel || !formData.marca || !formData.material || !formData.quantidade) {
+      alert("Por favor, preencha todos os campos obrigatórios.");
+      return;
+    }
+
+    // Submit
+    els.btn.disabled = true;
+    els.loading.classList.add('show');
+
+    // Convert to URLSearchParams (x-www-form-urlencoded) for better compatibility
+    var params = new URLSearchParams();
+    for (var key in formData) {
+      params.append(key, formData[key]);
+    }
+
+    fetch(SCRIPT_URL, {
+      method: 'POST',
+      body: params
+    })
+    .then(function(resp) { return resp.text(); }) // Handle as text first
+    .then(function(data) {
+      els.loading.classList.remove('show');
+      els.success.classList.add('show');
+
+      // Reset form logic
+      els.form.reset();
+      els.resp.disabled = true;
+      els.mat.disabled = true;
+      reset(els.resp, 'Aguardando mala...');
+      reset(els.mat, 'Aguardando marca...');
+
+      setTimeout(function() { els.success.classList.remove('show'); }, 4000);
+    })
+    .catch(function(err) {
+      console.error(err);
+      els.loading.classList.remove('show');
+      els.error.classList.add('show');
+    })
+    .finally(function() {
+      els.btn.disabled = false;
+    });
+  });
+
+})();
+</script>
+
+</body>
+</html>
